@@ -22,7 +22,7 @@ Each nodes of the cluster has a script (see logs_exportation folder) which is ex
 * **Data Indexing**: Sends structured log data to an Elasticsearch index which is node's specific.
 * **Verification**: Queries the index to ensure logs were successfully added and displays the first five entries.
 
-Once new logs arrived in the elastic search cluster, the master node download the most recent logs and process them before predicting anomalies (see logs_downloading_and_processing). In a nutshell it does the following actions : 
+Once new logs arrived in the elastic search cluster, the master node download the most recent logs them before processing the new logs and predicting anomalies on those last (see logs_downloading). In a nutshell it does the following actions : 
 * **Elasticsearch Connection**: Connects to an Elasticsearch cluster at a specified host.
 * **Log Retrieval**: Fetches all logs from the Elasticsearch indices using a match_all query, with optional fields and a default batch size of 1000. Scroll API is used for retrieving large datasets.
 * **CSV Export**: Writes the retrieved logs to a CSV file (all_logs.csv), ensuring all specified fields are included. Missing fields are filled with empty values.
