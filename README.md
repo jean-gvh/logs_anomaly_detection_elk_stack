@@ -28,7 +28,7 @@ Once new logs arrived in the elastic search cluster, the master node download th
 * **CSV Export**: Writes the retrieved logs to a CSV file (all_logs.csv), ensuring all specified fields are included. Missing fields are filled with empty values.
 
 After downloading the most recent logs of all cluster nodes, those lasts will be processed (encoding, null values check, etc...) to be in the expected shape for the machine learning model. Finally, the dataset is given to the machine learnijg model to predict potential anomalies/suspicious logs. If any anomalies or suspicious logs are found, an email is sent to the cluster manager (sysadmin) to keep him updated on the cluster health. This whole process is described in the logs_process_and_prediction folder and it basically consists of : 
-* Applied one hot encoding : the new logs read from a csv are transformed into a pandas dataframe and one hot encoding is applied on object variables.
-* Model loading : The prediction model is loaded into the execution environment to be executed on the encoded data.
-* Model Prediction : Predictions are obtained thanks to the model.
-* Alerting : if any suspicious logs or logs that may reflect anomalies are unveiled, an email is send to the cluster manager (sysadmin) with the logs description : message, node name, PID.
+* **Applied one hot encoding** : the new logs read from a csv are transformed into a pandas dataframe and one hot encoding is applied on object variables.
+* **Model loading** : The prediction model is loaded into the execution environment to be executed on the encoded data.
+* **Model Prediction** : Predictions are obtained thanks to the model.
+* **Alerting** : if any suspicious logs or logs that may reflect anomalies are unveiled, an email is send to the cluster manager (sysadmin) with the logs description : message, node name, PID.
