@@ -32,3 +32,24 @@ After downloading the most recent logs of all cluster nodes, those lasts will be
 * **Model loading** : The prediction model is loaded into the execution environment to be executed on the encoded data.
 * **Model Prediction** : Predictions are obtained thanks to the model.
 * **Alerting** : if any suspicious logs or logs that may reflect anomalies are unveiled, an email is send to the cluster manager (sysadmin) with the logs description : message, node name, PID.
+
+# 2. Justification of the choosen machine learning model.
+
+The choice of the Isolation Forest algorithm for predicting potential anomalies in logs is supported by several key factors:
+
+Unsupervised Nature:
+Isolation Forest operates without the need for labeled data, making it particularly suited for anomaly detection in logs where labeled examples of anomalies are rare or nonexistent.
+
+Scalability:
+With a linear time complexity, the algorithm efficiently handles large datasets. Its sub-sampling approach ensures scalability even when dealing with extensive log files.
+
+High-Dimensional Data Robustness:
+After applying one-hot encoding, our dataset exhibits high dimensionality. Isolation Forest is inherently robust in such scenarios, maintaining its effectiveness without a significant performance drop.
+
+Anomaly Detection Efficiency:
+The algorithm's core principle is that anomalies are easier to isolate than normal observations. This unique approach makes it highly effective at identifying outliers in complex datasets like log files.
+
+These attributes make Isolation Forest an optimal choice for anomaly detection in log data, balancing performance, scalability, and robustness in high-dimensional contexts.
+
+# 3. Relevancy of the predictions obtained.
+To measure the relevancy of the preidctions made by the models, I decided to compare the predictions between an anomaly-free data sets and a datasets which contained anomalies. 
