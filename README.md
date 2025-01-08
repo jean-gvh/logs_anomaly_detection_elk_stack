@@ -26,3 +26,5 @@ Once new logs arrived in the elastic search cluster, the master node download th
 * **Elasticsearch Connection**: Connects to an Elasticsearch cluster at a specified host.
 * **Log Retrieval**: Fetches all logs from the Elasticsearch indices using a match_all query, with optional fields and a default batch size of 1000. Scroll API is used for retrieving large datasets.
 * **CSV Export**: Writes the retrieved logs to a CSV file (all_logs.csv), ensuring all specified fields are included. Missing fields are filled with empty values.
+
+After downloading the most recent logs of all cluster nodes, those lasts will be processed (encoding, null values check, etc...) to be in the expected shape for the machine learning model. Finally, the dataset is given to the machine learnijg model to predict potential anomalies/suspicious logs. If any anomalies or suspicious logs are found, an email is sent to the cluster manager (sysadmin) to keep him updated on the cluster health. This whole process is described in the logs_process_and_prediction folder and it basically consists of : 
