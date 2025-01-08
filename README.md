@@ -26,3 +26,30 @@ Once new logs arrived in the elastic search cluster, the master node download th
 * **Elasticsearch Connection**: Connects to an Elasticsearch cluster at a specified host.
 * **Log Retrieval**: Fetches all logs from the Elasticsearch indices using a match_all query, with optional fields and a default batch size of 1000. Scroll API is used for retrieving large datasets.
 * **CSV Export**: Writes the retrieved logs to a CSV file (all_logs.csv), ensuring all specified fields are included. Missing fields are filled with empty values.
+
+After downloading the most recent logs of all cluster nodes, those lasts will be processed (encoding, null values check, etc...) to be in the expected shape for the machine learning model. Finally, the dataset is given to the machine learnijg model to predict potential anomalies/suspicious logs. If any anomalies or suspicious logs are found, an email is sent to the cluster manager (sysadmin) to keep him updated on the cluster health. This whole process is described in the logs_process_and_prediction folder and it basically consists of : 
+* **Applied one hot encoding** : the new logs read from a csv are transformed into a pandas dataframe and one hot encoding is applied on object variables.
+* **Model loading** : The prediction model is loaded into the execution environment to be executed on the encoded data.
+* **Model Prediction** : Predictions are obtained thanks to the model.
+* **Alerting** : if any suspicious logs or logs that may reflect anomalies are unveiled, an email is send to the cluster manager (sysadmin) with the logs description : message, node name, PID.
+
+# 2. Justification of the choosen machine learning model.
+
+The choice of the Isolation Forest algorithm for predicting potential anomalies in logs is supported by several key factors:
+
+Unsupervised Nature:
+Isolation Forest operates without the need for labeled data, making it particularly suited for anomaly detection in logs where labeled examples of anomalies are rare or nonexistent.
+
+Scalability:
+With a linear time complexity, the algorithm efficiently handles large datasets. Its sub-sampling approach ensures scalability even when dealing with extensive log files.
+
+High-Dimensional Data Robustness:
+After applying one-hot encoding, our dataset exhibits high dimensionality. Isolation Forest is inherently robust in such scenarios, maintaining its effectiveness without a significant performance drop.
+
+Anomaly Detection Efficiency:
+The algorithm's core principle is that anomalies are easier to isolate than normal observations. This unique approach makes it highly effective at identifying outliers in complex datasets like log files.
+
+These attributes make Isolation Forest an optimal choice for anomaly detection in log data, balancing performance, scalability, and robustness in high-dimensional contexts.
+
+# 3. Relevancy of the predictions obtained.
+To measure the relevancy of the preidctions made by the models, I decided to compare the predictions between an anomaly-free data sets and a datasets which contained anomalies. 
