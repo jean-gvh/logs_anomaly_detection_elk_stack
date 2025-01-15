@@ -63,3 +63,5 @@ Next, I employed various techniques to generate suspicious logs (anomalies) and 
 * **FTP Server**: I logged into the FTP server using dummy credentials, producing logs that flagged suspicious activities on the node.
 * **Flask Application**: Leveraging a Flask application developed by a colleague, I generated custom logs simulating unusual or abnormal events.
 The model was then tested on the newly created dataset containing these anomalies. The results are shown below:
+![image](https://github.com/user-attachments/assets/78476a08-8b1e-4a74-b410-13abffae15d4)
+
