@@ -37,19 +37,29 @@ After downloading the most recent logs of all cluster nodes, those lasts will be
 
 The choice of the Isolation Forest algorithm for predicting potential anomalies in logs is supported by several key factors:
 
-Unsupervised Nature:
+**Unsupervised Nature**:
 Isolation Forest operates without the need for labeled data, making it particularly suited for anomaly detection in logs where labeled examples of anomalies are rare or nonexistent.
 
-Scalability:
+**Scalability**:
 With a linear time complexity, the algorithm efficiently handles large datasets. Its sub-sampling approach ensures scalability even when dealing with extensive log files.
 
-High-Dimensional Data Robustness:
+**High-Dimensional Data Robustness**:
 After applying one-hot encoding, our dataset exhibits high dimensionality. Isolation Forest is inherently robust in such scenarios, maintaining its effectiveness without a significant performance drop.
 
-Anomaly Detection Efficiency:
+**Anomaly Detection Efficiency**:
 The algorithm's core principle is that anomalies are easier to isolate than normal observations. This unique approach makes it highly effective at identifying outliers in complex datasets like log files.
 
 These attributes make Isolation Forest an optimal choice for anomaly detection in log data, balancing performance, scalability, and robustness in high-dimensional contexts.
 
-# 3. Relevancy of the predictions obtained.
-To measure the relevancy of the preidctions made by the models, I decided to compare the predictions between an anomaly-free data sets and a datasets which contained anomalies. 
+# 3. Relevance of the Predictions Obtained
+To evaluate the relevance of the predictions made by the model, I compared the results between two datasets: one without any anomalies (anomaly-free) and another containing deliberately introduced anomalies.
+
+The image below illustrates the number of anomalies detected in the anomaly-free dataset. As expected, the model correctly identified zero anomalies, confirming its reliability in handling normal data.
+![image](https://github.com/user-attachments/assets/b830143e-33b2-43f8-a3fa-55fe9e316b6e)
+
+Next, I employed various techniques to generate suspicious logs (anomalies) and create a dataset containing abnormal behavior. These techniques included:
+
+* **SSH Unauthorized Authentication**: I intentionally used incorrect credentials when attempting to SSH into the cluster nodes. This generated warning logs indicating unauthorized access attempts.
+* **FTP Server**: I logged into the FTP server using dummy credentials, producing logs that flagged suspicious activities on the node.
+* **Flask Application**: Leveraging a Flask application developed by a colleague, I generated custom logs simulating unusual or abnormal events.
+The model was then tested on the newly created dataset containing these anomalies. The results are shown below:
